@@ -1,8 +1,6 @@
 # Novel Generator
 
-In this assignment, your task is to write the next great classic English novel. No pressure. Because you're actually pretty busy at the moment, you've decided that you are going to train your computer to write the first draft of the novel for you.
-
-Your task is to write a computer program that feeds on the publicly available works of authors that inspire you, books that include themes similar to those you're hoping to include in your novel, and your program will attempt to author another book similar to the inspiration.
+This program generates novels by reading through files and matching phrases.
 
 For example, let's say you want to write a book about manners, marriage, and mystery midnight mischief, you might want to feed your program one or two of Jane Austen's novels (_Pride and Prejudice_ and _Emma_, for example) along with _The Legend of Sleepy Hollow_ by Washington Irving. Your program will record the patterns of words used in these texts and generate a new text that follows the same patterns.
 
@@ -115,30 +113,6 @@ Once you have generated a novel of the requested length, continue auto-generatin
 1. Remember that the requested length is a minimum. For particularly high k values, the "actual" length of the output might be much longer, as it's harder to find a random series of 10 tokens ending with end-of-sentence punctuation than it is to find a random series of 2 tokens ending with end-of-sentence punctuation.
 2. Note that the length is based on **tokens** and not iterations of a loop... if the user asks for a novel of length 100 with k=5, the program should strive to generate a novel of length 100, not of length 500.
 
-### A Guide to Getting Started
-
-Phew, that was a lot! Luckily, we've broken down the steps you need to take to complete this assignment. At a high level, here's what you need to do:
-
--   First, pick out a few (at least two) books on Project Gutenberg (<http://www.gutenberg.org/>). Download plaintext copies of the books and add them to the "training_texts" folder in your repository. I recommend using prose sources because auto-generated poetry or plays will not turn out as well.
-    - **YOU MAY NOT USE ANY COPYRIGHTED MATERIAL IN THIS ASSIGNMENT.**
-    - You can train your model on at least two training texts, but if you want to include more, you are welcome to do so (though please ensure your program runs in &lt; 30 seconds for grading purposes). The more training texts you employ, the more likely your novel will be sensical.
-    - Make sure your training text isn't too short (e.g. a training text with only 4 words can cause issues with a k value of of 5).
-    - Make sure that your training text has at least one end-of-sentence punctuation mark (this has caused issues prior years with poems).
--   Then, start filling in the provided functions in NovelGenerator.java:
-    -   Write the `readFile()` function that reads in a file and returns the contents of the file as a String.
-    -   Write the `trainModel()` function that trains your model on a series of tokens passed in. 
-    -   Write a function that generates a list of k-word sequences. Your function should use the provided `tokenizeString()` function, which returns individual tokens.
-    -   Write the `learnFromFile()` function that combines the functionality of the previous three functions.
-    -   _Check yourself_ - how many unit tests have you written up to this point? If you haven't written any, you should modify your habits to test as you develop!
-    -   In the `main()` function, create a new NovelGenerator object.
-    -   Call the `learnFromFile()` function for each of the training texts that you selected (remember to use good software engineering principles for this). **Make sure that, with each new training text, you add to the existing model instead of overwriting it** (this is a common mistake made by students).
-    -   Write the `generateNovel()` function that uses your model to generate a new novel of appropriate length.
--   Write a unit test that trains a model on a small testing file and generates a short novel. Ensure that the sequence of tokens in the generated novel could have been generated from the given model, and ensure that it ends appropriately.
--   Ensure that your `main()` function prompts the user for their desired novel length and their desired k.
--   Ensure that your `main()` function generates a novel of the user's desired length and outputs that novel to the user (either by printing it to the console or by saving it in a new file ***and*** printing it to the console).
--   As you look at the current class structure in the repository, it should make you uncomfortable. Refactor into multiple classes that follow the single-responsibility principle, and ensure that your functions are fewer than 100 lines long!
--   Save your favorite auto-generated novel as favoriteNovel.txt file in the top level of your repository (in the same folder as this README file).
-
 ### A Note About Tokenization
 #### How Tokenization Works
 
@@ -162,36 +136,9 @@ I walked my dog to the car . I didn t see
 //       extra space -----^        ^---- another extra space  
 ```
 
-**For the purposes of grading, both of these are OK.** However, as a fun challenge, if you'd like, you can try to fix some of these "quirks" in your code! We recommend doing this last, and committing your code first to ensure you do not break your code in the process of experimenting with this.
-
-Another common "quirk" program output: if your training text has speaker tags (e.g. `"Computer science is cool!" she stated`), there is the possibility that your output has a sentence that starts with a lowercase letter, like so:
-
 ```
 That is a nice dog! she stated there was a cause for the financial crisis of the world.
 //                  ^---- lowercase letter "start" to a sentence
 ```
 
 This is because the phrase `"Computer science is cool!" she stated` is tokenized into `Computer science is cool ! she stated`.
-
-### Evaluation Criteria
-
-**Below is a list of criteria for which the assignment will be evaluated and feedback will be given, using the E/S/U/N system.** _The sub-bullet points are provided as examples of what to consider when completing this assignment and are not intended to be comprehensive._
-
-- **Meets spec**
-    - At least two training texts included and used for training
-    - Included favoriteNovel.txt in top of repository
-- **Code structure**
-    - No code copied many times within a method, many times in a class, etc.
-    - Code is structured in an easy-to-read way
-    - Properly handles user input validation
-    - Architecture is well-formed and follows the single responsibility principle
-- **Testing**
-    - All tests run and pass
-    - All assert statements have a unique "message" passed to them
-- **Software engineering principals**
-    - No linter errors
-    - Well-chosen variable and method names
-- **Data Structures**
-    - Appropriate choices for dynamic types of `Map` and `List` in model
-- **Algorithms**
-    - Student demonstrates knowledge of algorithms, as taught in class
